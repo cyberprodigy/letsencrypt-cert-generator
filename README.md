@@ -6,11 +6,13 @@ This repo contains Linux shell scripts for working with certbot for manually gen
 ### Make sure you have certbot installed
 sudo apt-get install certbot
 
-### Update your config file in
-configs/cert_get_config.cfg
-Set FTP server credentials
+### Update your config file
+Open `configs/cert_get_config.cfg` in text editor and etner the information
+
+Set your FTP server address and credentials
 If you have multiple domains hosted on server, come separate them
 For each domain add etnry to DOCUMENT_ROOT variable to specify root directory on server for the domain
+Enter your email that will be listed in your SSL certificate to contact you regarding urgent issues
 
 
 ### Execute scripts
