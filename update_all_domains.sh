@@ -1,7 +1,8 @@
 #!/bin/bash
+
 echo 'Starting...'
 
-CONFIG_FILE=enthusiast.cfg
+CONFIG_FILE=configs/cert_gen_config.cfg
 if [ -f $CONFIG_FILE ]; then
 	echo "Loading config $CONFIG_FILE"
 	source $CONFIG_FILE
@@ -28,18 +29,9 @@ else
 	exit 1
 fi
 
-DIR=`date +%Y-%m-%d`
-mkdir $DIR
-
-echo "Cerificates will be placed in $PWD/$DIR"
-echo
-echo "Certbot will now ask you to generate files and upload them to the server"
-echo "in another terminal window execute the command"
-echo "sh upload_acme_verification.sh <file_contents> <path_on_server>"
-
-
-certbot certonly --manual $DOMAINS_LIST 
-
-
-cp /etc/letsencrypt/live/enthusiast.io/fullchain.pem $DIR/fullchain.pem
-cp /etc/letsencrypt/live/enthusiast.io/privkey.pem $DIR/privkey.pem
+for CUR_DOMAIN in $DOMAINS_LIST; do
+    if [ $CUR_DOMAIN != "-d" ]
+	then
+	  /bin/bash update_single_domain.sh $CUR_DOMAIN
+	fi
+done
